@@ -31,6 +31,7 @@ class ChatApplicationComponent extends Component {
     ServerConnection.getPort()
       .then(response => {
         const serverPort = response.port == undefined ? response.httpPort : response.port
+        console.log("Found server port: " + serverPort)
         this.chatDataService = new ChatDataService({
           onFailedMessage: this.onFailedMessage.bind(this),
           onLoadMessages: this.onLoadMessages.bind(this),
@@ -41,6 +42,7 @@ class ChatApplicationComponent extends Component {
         })
 
         if (currentUserName == null) {
+          console.log('Asking for new name')
           this.chatDataService.getName()
         } else {
           this.setState({ userName: currentUserName })

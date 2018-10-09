@@ -8,7 +8,11 @@ const ServerConnection = {
       credentials: 'include',
       method: 'GET'
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('port response back')
+      console.log(response)
+      return response.json()
+    })
   }
 }
 
