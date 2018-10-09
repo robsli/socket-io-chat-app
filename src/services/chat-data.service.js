@@ -22,7 +22,6 @@ function ChatDataService({
   const socket = io(socketServer)
 
   socket.on(actions.CONNECTED, () => {
-    console.log('connected to socket server!')
     onReceiveSocketID(socket.id)
   })
 
@@ -44,10 +43,7 @@ function ChatDataService({
 
   return {
     getMessages: () => socket.emit(actions.LOAD_MESSAGE),
-    getName: () => {
-      console.log('chat-data service asking for new name')
-      socket.emit(actions.NEW_NAME)
-    },
+    getName: () => socket.emit(actions.NEW_NAME),
     sendMessage: (message) => socket.emit(actions.NEW_MESSAGE, message)
   }
 }
