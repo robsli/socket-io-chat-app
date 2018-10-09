@@ -20,20 +20,33 @@ function ChatDataService({
   : 'https://socketio-chat-app-staging.herokuapp.com'
 
   let socket = process.env.NODE_ENV === 'development' ? io(socketServer) : null
-  process.env.NODE_ENV === 'production' &&
+  if (process.env.NODE_ENV === 'production') {
     fetch(socketServer, {
       credentials: 'include',
       method: 'GET'
     })
     .then((response) => {
-      socket = io(`${socketServer}:${response.port}`)
+      socket = io(`${socketServer}:${response}`)
       defineSocketListeners(socket)
+
+      return {
+        getMessages: () => socket.emit(actions.LOAD_MESSAGE),
+        getName: () => socket.emit(actions.NEW_NAME),
+        sendMessage: (message) => socket.emit(actions.NEW_MESSAGE, message)
+      }
     })
     .catch((error) => {
-      console.log('There was an error connecting to the server: ' + error)
+      console.error('There was an error connecting to the server: ' + error)
     })
+  } else {
+    defineSocketListeners(socket)
 
-  process.env.NODE_ENV === 'development' && defineSocketListeners(socket)
+    return {
+      getMessages: () => socket.emit(actions.LOAD_MESSAGE),
+      getName: () => socket.emit(actions.NEW_NAME),
+      sendMessage: (message) => socket.emit(actions.NEW_MESSAGE, message)
+    }
+  }
 
   function defineSocketListeners(socket) {
     socket.on(actions.CONNECTED, () => {
@@ -55,24 +68,6 @@ function ChatDataService({
     socket.on(actions.NEW_NAME, (newName) => {
       onNewName(newName)
     })
-  }
-
-  function getMessages() {
-    socket.emit(actions.LOAD_MESSAGE)
-  }
-
-  function getName() {
-    socket.emit(actions.NEW_NAME)
-  }
-
-  function sendMessage(message) {
-    socket.emit(actions.NEW_MESSAGE, message)
-  }
-
-  return {
-    getMessages,
-    getName,
-    sendMessage
   }
 }
 
