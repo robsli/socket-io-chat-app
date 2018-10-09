@@ -34,6 +34,9 @@ class ChatApplicationComponent extends Component {
   componentDidMount() {
     const currentUserName = this.sessionStorageManager.getUserName()
     if (currentUserName == null) {
+      while (this.state.socketID == null) {
+        console.log('waiting for connection')
+      }
       this.chatDataService.getName()
     } else {
       this.setState({ userName: currentUserName })
