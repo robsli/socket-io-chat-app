@@ -22,6 +22,8 @@ function ChatDataService({
 
   let socket = process.env.NODE_ENV === 'development' ? io(socketServer) : io(socketServer + serverPort)
 
+  console.log('socket initiated to: ' + socketServer + serverPort)
+
   socket.on(actions.CONNECTED, () => {
     onReceiveSocketID(socket.id)
   })
@@ -44,7 +46,10 @@ function ChatDataService({
 
   return {
     getMessages: () => socket.emit(actions.LOAD_MESSAGE),
-    getName: () => socket.emit(actions.NEW_NAME),
+    getName: () => {
+      console.log('chat-data service asking for new name')
+      socket.emit(actions.NEW_NAME)
+    },
     sendMessage: (message) => socket.emit(actions.NEW_MESSAGE, message)
   }
 }
