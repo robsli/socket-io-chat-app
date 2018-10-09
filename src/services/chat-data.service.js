@@ -5,8 +5,7 @@ function ChatDataService({
   onLoadMessages,
   onNewMessage,
   onNewName,
-  onReceiveSocketID,
-  serverPort
+  onReceiveSocketID
 }) {
   const actions = {
     CONNECTED: 'CONNECTED',
@@ -20,10 +19,10 @@ function ChatDataService({
   ? 'http://localhost:8080'
   : 'https://socketio-chat-app-staging.herokuapp.com'
 
-  let socket = process.env.NODE_ENV === 'development' ? io(socketServer) : io(`${socketServer}:${serverPort}`)
-  console.log(`socket initiated to: ${socketServer}:${serverPort}`)
+  const socket = io(socketServer)
 
   socket.on(actions.CONNECTED, () => {
+    console.log('connected to socket server!')
     onReceiveSocketID(socket.id)
   })
 

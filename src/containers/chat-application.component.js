@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import ApplicationPageHeaderComponent from '../components/application-page-header/application-page-header.component'
 import ChatWindowComponent from '../components/chat-window/chat-window.component'
 import ChatDataService from '../services/chat-data.service'
-import ServerConnection from '../services/server-connection.service'
 import SessionStorageManager from '../services/session-storage-manager.service'
 import './chat-application.component.css'
 
@@ -18,7 +17,13 @@ class ChatApplicationComponent extends Component {
       userName: undefined
     }
 
-    this.chatDataService = null
+    this.chatDataService = new ChatDataService({
+      onFailedMessage: this.onFailedMessage.bind(this),
+      onLoadMessages: this.onLoadMessages.bind(this),
+      onNewMessage: this.onNewMessage.bind(this),
+      onNewName: this.onNewName.bind(this),
+      onReceiveSocketID: this.onReceiveSocketID.bind(this),
+    })
     this.onMessageChange = this.onMessageChange.bind(this)
     this.onMessageSubmit = this.onMessageSubmit.bind(this)
     this.onRequestNewName = this.onRequestNewName.bind(this)
@@ -28,27 +33,12 @@ class ChatApplicationComponent extends Component {
   componentDidMount() {
     const currentUserName = this.sessionStorageManager.getUserName()
 
-    ServerConnection.getPort()
-      .then(response => {
-        const serverPort = response.port === undefined ? response.httpPort : response.port
-        console.log("Found server port: " + serverPort)
-        this.chatDataService = new ChatDataService({
-          onFailedMessage: this.onFailedMessage.bind(this),
-          onLoadMessages: this.onLoadMessages.bind(this),
-          onNewMessage: this.onNewMessage.bind(this),
-          onNewName: this.onNewName.bind(this),
-          onReceiveSocketID: this.onReceiveSocketID.bind(this),
-          serverPort: serverPort
-        })
-
-        if (currentUserName == null) {
-          console.log('Asking for new name')
-          this.chatDataService.getName()
-        } else {
-          this.setState({ userName: currentUserName })
-        }
-        this.chatDataService.getMessages()
-      })
+    if (currentUserName == null) {
+      this.chatDataService.getName()
+    } else {
+      this.setState({ userName: currentUserName })
+    }
+    this.chatDataService.getMessages()
   }
 
   onFailedMessage() {
