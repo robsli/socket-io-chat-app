@@ -1,0 +1,17 @@
+.page-header {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #d3d3d3;
+  text-align: center; }
+  .page-header__user-name--unicorn {
+    border-radius: 25px;
+    padding: 5px 10px;
+    background: #202D90;
+    color: #FEFEFA; }
+  .page-header__new-name {
+    border: none;
+    background: none;
+    color: #444; }
+    .page-header__new-name:hover {
+      text-decoration: underline;
+      cursor: pointer; }

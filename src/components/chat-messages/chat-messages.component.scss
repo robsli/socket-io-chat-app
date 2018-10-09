@@ -1,0 +1,14 @@
+@import '../../assets/settings';
+
+.chat-messages {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+
+  list-style-position: inside;
+  list-style-type: none;
+  overflow-y: scroll;
+}

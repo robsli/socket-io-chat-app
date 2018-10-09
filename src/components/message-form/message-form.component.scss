@@ -1,0 +1,46 @@
+@import '../../assets/settings';
+
+.message-form {
+  border-top: 1px solid $color-dark-gray;
+  display: flex;
+  flex: 0 1 50px;
+  flex-wrap: wrap;
+  padding: 15px 5px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.message-form__input {
+  border: 1px solid $color-light-gray;
+  border-radius: 25px;
+  flex: 4 1;
+  height: 30px;
+  margin-right: 10px;
+  padding: 0 15px;
+  
+  background: $color-white;
+  color: $color-primary;
+}
+
+.message-form__button {
+  border: none;
+  border-radius: 25px;
+  flex: 1 1;
+  height: 30px;
+
+  background: $color-primary;
+  color: $color-white;
+  font-size: $font-size-large;
+
+  &:disabled {
+    background: $color-medium-gray;
+  }
+}
+
+.message-form__failed-message {
+  margin-top: 5px;
+  padding-left: 5px;
+
+  font-size: $font-size-small;
+  color: $color-secondary;
+}

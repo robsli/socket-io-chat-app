@@ -1,0 +1,31 @@
+@import '../../assets/settings';
+
+.page-header {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid $color-light-gray;
+  text-align: center;
+
+  &__user-name {
+
+    &--unicorn {
+      border-radius: 25px;
+      padding: 5px 10px;
+
+      background: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  &__new-name {
+    border: none;
+
+    background: none;
+    color: $color-dark-gray;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

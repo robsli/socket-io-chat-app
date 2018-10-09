@@ -1,0 +1,25 @@
+.chat-message {
+  display: block;
+  max-width: 100%;
+  width: 100%; }
+  .chat-message__other .chat-message__text {
+    background: #d00d0d; }
+  .chat-message__self {
+    text-align: right; }
+    .chat-message__self .chat-message__text {
+      margin-top: 5px;
+      background: #202D90;
+      text-align: left; }
+  .chat-message__sender {
+    margin-bottom: 5px;
+    color: #444;
+    font-size: 12px; }
+  .chat-message__text {
+    border-radius: 25px;
+    display: inline-block;
+    margin: 0;
+    max-width: 80%;
+    padding: 8px 12px;
+    color: #FEFEFA;
+    font-size: 14px;
+    word-wrap: break-word; }

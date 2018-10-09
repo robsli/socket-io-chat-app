@@ -1,0 +1,10 @@
+@import '../../assets/settings';
+
+.chat-window {
+  border: 1px solid $color-light-gray;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  padding: 5px 10px;
+  width: 100%;
+}
